@@ -15,6 +15,7 @@
 		62E3A330193D3F3B00BD3F0F /* Bullet.m in Sources */ = {isa = PBXBuildFile; fileRef = 62E3A32F193D3F3B00BD3F0F /* Bullet.m */; };
 		65CC915A196141CF00838899 /* TurretRobot.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CC9159196141CF00838899 /* TurretRobot.m */; };
 		97E3FF961965C94600E71745 /* BoBot.m in Sources */ = {isa = PBXBuildFile; fileRef = 97E3FF951965C94600E71745 /* BoBot.m */; };
+		97E3FF991965D03100E71745 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 97E3FF981965D03100E71745 /* Location.m */; };
 		B71F5911188484E7003F4D28 /* iPad-old.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5907188484E7003F4D28 /* iPad-old.png */; };
 		B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5908188484E7003F4D28 /* iPad-old@2x.png */; };
 		B71F5913188484E7003F4D28 /* iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5909188484E7003F4D28 /* iPad.png */; };
@@ -82,6 +83,8 @@
 		65CC9159196141CF00838899 /* TurretRobot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TurretRobot.m; path = Source/Robot/TurretRobot.m; sourceTree = "<group>"; };
 		97E3FF941965C93A00E71745 /* BoBot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BoBot.h; path = Source/Robot/BoBot.h; sourceTree = "<group>"; };
 		97E3FF951965C94600E71745 /* BoBot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BoBot.m; path = Source/Robot/BoBot.m; sourceTree = "<group>"; };
+		97E3FF971965D03100E71745 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Location.h; path = Source/Robot/Location.h; sourceTree = "<group>"; };
+		97E3FF981965D03100E71745 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Location.m; path = Source/Robot/Location.m; sourceTree = "<group>"; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
 		B71F5909188484E7003F4D28 /* iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPad.png; path = Icons/iPad.png; sourceTree = "<group>"; };
@@ -148,6 +151,8 @@
 			isa = PBXGroup;
 			children = (
 				97E3FF951965C94600E71745 /* BoBot.m */,
+				97E3FF971965D03100E71745 /* Location.h */,
+				97E3FF981965D03100E71745 /* Location.m */,
 				97E3FF941965C93A00E71745 /* BoBot.h */,
 				65CC9158196141CF00838899 /* TurretRobot.h */,
 				65CC9159196141CF00838899 /* TurretRobot.m */,
@@ -390,6 +395,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				97E3FF961965C94600E71745 /* BoBot.m in Sources */,
+				97E3FF991965D03100E71745 /* Location.m in Sources */,
 				6236628E19612C5500ECB220 /* AdvancedRobot.m in Sources */,
 				629FCFF4193E71C300896E8C /* GameOverScene.m in Sources */,
 				6244629A1937DDD300895F2D /* Robot.m in Sources */,

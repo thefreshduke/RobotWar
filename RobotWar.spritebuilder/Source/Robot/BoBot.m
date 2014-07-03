@@ -7,6 +7,7 @@
 //
 
 #import "BoBot.h"
+#import "Location.h"
 
 typedef NS_ENUM(NSInteger, RobotState){
     RobotStateDefault,
@@ -24,19 +25,15 @@ typedef NS_ENUM(NSInteger, RobotState){
     CGPoint _lastKnownPosition;
     CGFloat _timeSinceLastKnownPosition;
     
+    NSMutableArray * _scannedLocations;
+    
 }
 
 -(void) run{
     while(true){
         if(_currentRobotState == RobotStateDefault){
-            CGSize dimensions = [self arenaDimensions];
-            int x = dimensions.width/3;
-            int y = dimensions.height/3;
-          //  CCLOG(@"%f, %f", dimensions.width, dimensions.height);
-            [self goTo: ccp(600, 100)];
-            [self faceMiddle];
-            _currentRobotState = RobotStateFiring;
-            
+        //    CGSize dimensions = [self arenaDimensions];
+            [self moveAhead: 30];
         }
     }
 }
@@ -54,21 +51,26 @@ typedef NS_ENUM(NSInteger, RobotState){
         double dx = ((point.x+(width/2))-position.x);
         double dy = ((point.y)-position.y);
         double dist = sqrt(dx*dx + dy*dy);
-        float buffer = 0;
+      //  float buffer = 0;
         if (dist > (position.y)){
-            
-            if (position.y > [self arenaDimensions].height/2){
+            /*if (position.y  > [self arenaDimensions].height/2){
                 buffer = .7;}
             else{ buffer = .8;}
             
-            CCLOG(@"%f", buffer);
-            
-            dist = position.y * buffer;
+            */
+            dist = position.y;
         }
-        
+        if(dist > position.x)
+            dist = position.x;
+            
+        CCLOG(@"%f, %f", point.x, point.y);
+
         [self moveAhead:dist];
         
-
+        CCLOG(@"There.");
+        
+//cos angle * dist > width
+//sin angle * dist > height
                                                                 
     }
 }
@@ -78,26 +80,13 @@ typedef NS_ENUM(NSInteger, RobotState){
     [self turnRobotLeft:angle];
     
 }
-/*
--(NSArray *) goTo:(CGPoint) point{
-    CGPoint position = [self position];
-    while (!(position.x == point.x) && !(position.y == point.y)) {
-        position = [self position];
-        float angle = [self angleBetweenHeadingDirectionAndWorldPosition: ccp(point.x,point.y)];
-    }
-    if(!(position.x == (point.x )) && !(position.y == (point.y) )){
-        position = ccp(x,y);
-        float angle = [self angleBetweenHeadingDirectionAndWorldPosition: ccp(point.x,point.y)];
-        [self turnRobotRight: angle];
-        
-        double dx = (point.x-position.x);
-        double dy = (point.y-position.y);
-        double dist = sqrt(dx*dx + dy*dy);
-        
-        [self moveAhead:dist];
-    }
-       }
-}*/
+
+-(void) facePoint: (CGPoint) point{
+    int angle = abs([self angleBetweenHeadingDirectionAndWorldPosition: point]);
+    [self turnRobotLeft:angle];
+}
+
+
 -(CGPoint)position {
     CGRect box = [self robotBoundingBox];
     int x = CGRectGetMidX(box);
@@ -114,8 +103,17 @@ typedef NS_ENUM(NSInteger, RobotState){
         [self cancelActiveAction];
     }
     
-    _lastKnownPosition = position;
-    _timeSinceLastKnownPosition = self.currentTimestamp;
+    Location * lastLocation = [[Location alloc] initWithPosition: position andTime:self.currentTimestamp];
+
+    [_scannedLocations addObject: lastLocation];
+    
+    CCLOG(@"Scanned robot at %f, %f", lastLocation.position.x, lastLocation.position.y);
+    
+    if ((abs(lastLocation.position.x - [self position].x) + abs(lastLocation.position.y - [self position].y)) > 50){
+        CCLOG(@"Going there now.");
+        [self goTo: lastLocation.position];
+    }
+    
     _currentRobotState = RobotStateFiring;
 }
 
