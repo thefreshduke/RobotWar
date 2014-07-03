@@ -8,6 +8,6 @@
 
 #import "Robot.h"
 
-@interface TheShadyKeevbot : Robot
+@interface BoBot : Robot
 
 @end

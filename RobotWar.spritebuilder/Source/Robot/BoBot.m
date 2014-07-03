@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Apportable. All rights reserved.
 //
 
-#import "TheShadyKeevbot.h"
+#import "BoBot.h"
 
 typedef NS_ENUM(NSInteger, RobotState){
     RobotStateDefault,
@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, RobotState){
 };
 
 
-@implementation TheShadyKeevbot{
+@implementation BoBot{
     RobotState _currentRobotState;
     
     CGPoint _lastKnownPosition;
@@ -33,7 +33,7 @@ typedef NS_ENUM(NSInteger, RobotState){
             int x = dimensions.width/3;
             int y = dimensions.height/3;
           //  CCLOG(@"%f, %f", dimensions.width, dimensions.height);
-            [self goTo: ccp(0, 0)];
+            [self goTo: ccp(600, 100)];
             [self faceMiddle];
             _currentRobotState = RobotStateFiring;
             
@@ -57,7 +57,7 @@ typedef NS_ENUM(NSInteger, RobotState){
         float buffer = 0;
         if (dist > (position.y)){
             
-            if (position.y > [self arenaDimensions].width/2){
+            if (position.y > [self arenaDimensions].height/2){
                 buffer = .7;}
             else{ buffer = .8;}
             
