@@ -12,21 +12,24 @@ typedef NS_ENUM(NSInteger, RobotState){
     RobotStateDefault,
     RobotStateFiring,
     RobotStateSearching,
+    RobotStateFollow,
     RobotStateTurnaround,
-    RobotStateHit,
-    RobotStateSniper
+    RobotStateSniper, //Useful for detecting opponent location if opponent move around
+    
 };
 
 
 @implementation BoBot{
     RobotState _currentRobotState;
-    
+    NSDictionary *roboModeData; //Fires every time
     CGPoint _lastKnownPosition;
     CGFloat _timeSinceLastKnownPosition;
-    
+    BOOL enemyFound;
+    NSMutableArray *actionSequence;
 }
 
 -(void) run{
+    
     while(true){
         if(_currentRobotState == RobotStateDefault){
             CGSize dimensions = [self arenaDimensions];
@@ -36,11 +39,26 @@ typedef NS_ENUM(NSInteger, RobotState){
             [self goTo: ccp(600, 100)];
             [self faceMiddle];
             _currentRobotState = RobotStateFiring;
-            
         }
+        
     }
 }
+-(void)detectEnemyExit {
+    
+}
+-(void)followEnemy {
+    
+}
+-(void)enemyRadiusLocation{
+    
+}
 
+-(void)foundOpponent{
+    
+}
+-(void)addData {
+    
+}
 
 -(void) goTo:(CGPoint) point{
     CGPoint position = [self position];
