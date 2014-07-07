@@ -7,6 +7,7 @@
 //
 
 #import "BoBot.h"
+#import "robotData.h"
 #import "Location.h"
 
 typedef NS_ENUM(NSInteger, RobotState){
@@ -19,24 +20,62 @@ typedef NS_ENUM(NSInteger, RobotState){
     
 };
 
-
+/*
+ 
+* cancelActiveAction
+* currentTimestamp
+* Gunheading direction
+* hitwallHitAngle - This method can be implemented interestingly. You can bascially
+ determine based on the angle at which the bullet hit where the opponent isn't, and using his movement tendencies understand where to fire. Though at the beginning of this algorithm, I will leave this function alone.
+    **Robot on a hunch
+ 
+ 
+ */
 @implementation BoBot{
     RobotState _currentRobotState;
-    NSDictionary *roboModeData; //Fires every time
-    CGPoint _lastKnownPosition;
-    CGFloat _timeSinceLastKnownPosition;
+//    NSMutableArray *roboModeData; //Fires every time
+//    CGPoint _lastKnownPosition;
+//    CGFloat _timeSinceLastKnownPosition;
+    NSMutableArray *opponentMovementTendencies;
+    NSMutableArray *opponentExitTendencies;
+    NSMutableArray *opponentFiringTendencies;
+    NSMutableArray *damageTendencies;
+    CGPoint opponentRadiusBegin;
     BOOL enemyFound;
     NSMutableArray *actionSequence;
     NSMutableArray * _scannedLocations;
+    int speed;
+    CGRect enemyRadius;
+    sequences currentSequence;
 }
 
 -(void) run{
+    actionSequence = [NSMutableArray array];
+    
+    _scannedLocations = [NSMutableArray array];
     
     while(true){
-        if(_currentRobotState == RobotStateDefault){
+        
+//        if ([roboModeData count] <= 2) {
+//            _currentRobotState = RobotStateSearching;
+//            
+//        }
+//        if (!enemyFound) {
+//            NSArray
+//        }
+//        [self pushData];
+//        [self analyzeData];
+//
+//        if (enemyFound) {
+//            
+//        }
+//        else{
+//            
+//        }
+                if(_currentRobotState == RobotStateDefault){
             CGSize dimensions = [self arenaDimensions];
             int x = dimensions.width/3;
-            int y = dimensions.height/3;
+            int qefqefy = dimensions.height/3;
           //  CCLOG(@"%f, %f", dimensions.width, dimensions.height);
             [self goTo: ccp(600, 100)];
             [self faceMiddle];
@@ -47,24 +86,54 @@ typedef NS_ENUM(NSInteger, RobotState){
         
     }
 }
--(void)detectEnemyExit {
+
+-(void)pushData {
+//    NSString *keyForState = [NSString stringWithFormat:@"%@",]
     
-}
--(void)followEnemy {
     
-}
--(void)enemyRadiusLocation{
     
 }
 
--(void)foundOpponent{
+-(NSArray *)probabilityOfEvent:(NSArray *)dataPoints {
     
 }
+
+-(void)detectEnemyExit {
+    
+}
+
+//De
+-(CGRect)enemyRadiusLocation{
+    
+}
+
 -(void)addData {
     
 }
 
--(void) goTo:(CGPoint) point{
+-(void)dodgeBullets {
+    
+}
+//-(CGPoint)predictEnemyLocation:(CGPoint)lastKnowLocation{
+//    NSMutableArray *possibleLocations = [[NSMutableArray alloc]init];
+//    NSMutableSet *relevantData = [[NSSet alloc]init];
+//    NSInteger percentageRight;
+//    NSInteger percentageLeft;
+//    for (robotData *data in _scannedLocations) {
+//        if (data.sequence == currentSequence){
+//            [relevantData addObject:data];
+//            NSLog(@"%@",data);
+//            xData = (xData > data.enemyLocation.x) ?abs(data.enemyLocation -
+//    } if (enemyFound) {
+//        return
+//    }
+//                                                    
+//                                                        
+//}
+
+
+
+-(void)goTo:(CGPoint) point{
     CGPoint position = [self position];
        // float angle = [self angleBetweenHeadingDirectionAndWorldPosition: ccp(point.x+10,point.y+10)];
     int width = CGRectGetWidth([self robotBoundingBox]);
@@ -120,27 +189,28 @@ typedef NS_ENUM(NSInteger, RobotState){
     return position;
 }
 -(void) bulletHitEnemy:(Bullet *)bullet{
-    
-    
-}
-- (void)scannedRobot:(Robot *)robot atPosition:(CGPoint)position {
-    if (_currentRobotState != RobotStateFiring) {
-        [self cancelActiveAction];
-    }
-    
-    Location * lastLocation = [[Location alloc] initWithPosition: position andTime:self.currentTimestamp];
 
-    [_scannedLocations addObject: lastLocation];
-    
-    CCLOG(@"Scanned robot at %f, %f", lastLocation.position.x, lastLocation.position.y);
-    
-    if ((abs(lastLocation.position.x - [self position].x) + abs(lastLocation.position.y - [self position].y)) > 50){
-        CCLOG(@"Going there now.");
-        [self goTo: lastLocation.position];
-    }
-    
-    _currentRobotState = RobotStateFiring;
 }
+//-(void)scannedRobot:(Robot *)robot atPosition:(CGPoint)position {
+//    CGPoint predictedLocation = [self predictEnemyLocation];
+//    [
+//    if (_currentRobotState != RobotStateFiring) {
+//        [self cancelActiveAction];
+//    }
+//    
+//    Location * lastLocation = [[Location alloc] initWithPosition: position andTime:self.currentTimestamp];
+//
+//    [_scannedLocations addObject: lastLocation];
+//    
+//    CCLOG(@"Scanned robot at %f, %f", lastLocation.position.x, lastLocation.position.y);
+//    
+//    if ((abs(lastLocation.position.x - [self position].x) + abs(lastLocation.position.y - [self position].y)) > 50){
+//        CCLOG(@"Going there now.");
+//        [self goTo: lastLocation.position];
+//    }
+//    
+//    _currentRobotState = RobotStateFiring;
+//}
 
 - (void)hitWall:(RobotWallHitDirection)hitDirection hitAngle:(CGFloat)angle {
     if (_currentRobotState != RobotStateTurnaround) {
